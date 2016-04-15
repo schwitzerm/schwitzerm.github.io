@@ -2,7 +2,8 @@
 layout: post
 title:  "Stuff will go here"
 date:   2016-04-14 23:52:54 -0700
-categories: miscpost, useless
+categories: miscpost
+tags: useless
 
 ---
 Soon I'll be writing about my programming experiences here. I'm just too tired to do that right now.
