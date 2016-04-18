@@ -1,0 +1,52 @@
+---
+layout: post
+title:  "FPSG: Functional Programming, Scala, and Game Dev (Pt. 1 / ??)"
+date:   2016-04-17 15:53:01 -0700
+categories: gamedev,scala
+tags: experiences,gamedev,scala
+
+---
+Scala has quickly become my favourite language. Getting into the language I was BEYOND lost. From not understanding any
+functional language concepts, to the strange operators and seemingly endless ways to do things... I was overwhelmed.
+
+After a couple years tho, I really feel like this language is going to be a big part of the future. If not this
+language, then another that is similar, perhaps Clojure.
+
+Now that I feel as though I understand the language a bit better, I'll start talking about what I've been working on.
+As the title suggests: game development; specifically, game engine development. I've been working towards a (mostly)
+purely functional, immutable game engine. Anywhere mutability is required, it is isolated and kept under heavy lock
+and key, only being accessed for writing when absolutely necessary through a well-tested API.
+
+An example of such mutability, an event pool:
+
+{% highlight scala %}
+object PlayerEventPool {
+  // the mutable data structure we've isolated
+  private var playerEvents: Queue[PlayerEvent] = Queue()
+
+  def length: Int = playerEvents.length
+
+  def clear(): Unit = {
+    playerEvents = Queue()
+  }
+
+  @tailrec
+  def getAndEmptyPlayerEvents(z: List[PlayerEvent] = List()): Option[List[PlayerEvent]] = popPlayerEvent match {
+    case Some(e) => getAndEmptyPlayerEvents(e :: z)
+    case None => z.length match {
+      case l if l > 0 => Some(z.reverse.sortBy(_.targetId))
+      case _ => None
+    }
+  }
+
+  def pushPlayerEvent(event: PlayerEvent): Unit = playerEvents = playerEvents.enqueue(event)
+
+  def popPlayerEvent: Option[PlayerEvent] = playerEvents.dequeueOption match {
+    case Some((event, queue)) =>
+      playerEvents = queue
+
+      Some(event)
+    case None => None
+  }
+}
+{% endhighlight %}
