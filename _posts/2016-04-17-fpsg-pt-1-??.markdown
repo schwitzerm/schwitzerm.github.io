@@ -21,18 +21,15 @@ An example of such mutability, an event pool:
 
 {% highlight scala %}
 object PlayerEventPool {
-  // the mutable data structure we've isolated
+  // the actual data, accessed via the singleton
   private var playerEvents: Queue[PlayerEvent] = Queue()
 
+  def clear(): Unit = playerEvents = Queue()
   def length: Int = playerEvents.length
 
-  def clear(): Unit = {
-    playerEvents = Queue()
-  }
-
   @tailrec
-  def getAndEmptyPlayerEvents(z: List[PlayerEvent] = List()): Option[List[PlayerEvent]] = popPlayerEvent match {
-    case Some(e) => getAndEmptyPlayerEvents(e :: z)
+  def getPlayerEvents(z: List[PlayerEvent] = List()): Option[List[PlayerEvent]] = popPlayerEvent match {
+    case Some(e) => getPlayerEvents(e :: z)
     case None => z.length match {
       case l if l > 0 => Some(z.reverse.sortBy(_.targetId))
       case _ => None
@@ -49,4 +46,5 @@ object PlayerEventPool {
     case None => None
   }
 }
+
 {% endhighlight %}
