@@ -1,10 +1,7 @@
 ---
 layout: post
-title:  "FPSG: Functional Programming, Scala, and Game Dev (Pt. 1 / ??)"
-date:   2016-04-18 17:19:01 -0700
-categories: gamedev,scala
+title: "FPSG: Functional Programming, Scala, and Game Dev (Pt. 1 / ??)"
 tags: experiences,gamedev,scala
-
 ---
 Scala has quickly become my favourite language. Getting into the language I was BEYOND lost. From not understanding any
 functional language concepts, to the strange operators and seemingly endless ways to do things... I was overwhelmed.
