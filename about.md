@@ -4,12 +4,10 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+I'm Mitchell Schwitzer, a Software Engineer and computer enthusiast. I've also become quite a bit of a skier.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
+I've worked in a variety of industries, and am always looking for exciting new challenges to tackle. Nothing I love
+better than a good puzzle.
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+
+If you want to get to know me better, please visit my main page at [schwitzer.ca](http://www.schwitzer.ca)

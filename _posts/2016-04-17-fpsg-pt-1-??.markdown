@@ -1,13 +1,14 @@
 ---
 layout: post
 title:  "FPSG: Functional Programming, Scala, and Game Dev (Pt. 1 / ??)"
-date:   2016-04-17 15:53:01 -0700
+date:   2016-04-18 17:19:01 -0700
 categories: gamedev,scala
 tags: experiences,gamedev,scala
 
 ---
 Scala has quickly become my favourite language. Getting into the language I was BEYOND lost. From not understanding any
 functional language concepts, to the strange operators and seemingly endless ways to do things... I was overwhelmed.
+Eventually, I subscribed to the FRP (Functional Reactive Programming) paradigm.
 
 After a couple years tho, I really feel like this language is going to be a big part of the future. If not this
 language, then another that is similar, perhaps Clojure.
@@ -17,18 +18,18 @@ As the title suggests: game development; specifically, game engine development. 
 purely functional, immutable game engine. Anywhere mutability is required, it is isolated and kept under heavy lock
 and key, only being accessed for writing when absolutely necessary through a well-tested API.
 
-An example of such mutability, an event pool:
+An example of such mutability, in this case an event pool singleton:
 
 {% highlight scala %}
 object PlayerEventPool {
-  // the actual data, accessed via the singleton
+  // the actual data, accessed via the functions defined below
   private var playerEvents: Queue[PlayerEvent] = Queue()
 
   def clear(): Unit = playerEvents = Queue()
   def length: Int = playerEvents.length
 
   @tailrec
-  def getPlayerEvents(z: List[PlayerEvent] = List()): Option[List[PlayerEvent]] = popPlayerEvent match {
+  def getPlayerEvents(z: List[PlayerEvent] = List()): Option[List[PlayerEvent]] = dequeuePlayerEvent match {
     case Some(e) => getPlayerEvents(e :: z)
     case None => z.length match {
       case l if l > 0 => Some(z.reverse.sortBy(_.targetId))
@@ -36,9 +37,9 @@ object PlayerEventPool {
     }
   }
 
-  def pushPlayerEvent(event: PlayerEvent): Unit = playerEvents = playerEvents.enqueue(event)
+  def enqueuePlayerEvent(event: PlayerEvent): Unit = playerEvents = playerEvents.enqueue(event)
 
-  def popPlayerEvent: Option[PlayerEvent] = playerEvents.dequeueOption match {
+  def dequeuePlayerEvent: Option[PlayerEvent] = playerEvents.dequeueOption match {
     case Some((event, queue)) =>
       playerEvents = queue
 
@@ -47,4 +48,18 @@ object PlayerEventPool {
   }
 }
 
+{% endhighlight %}
+
+The actual data structure is a Queue containing PlayerEvents, and I've defined a very simple API to manipulate the
+structure. Adding or removing an event from the queue is well defined, so we're to have no side-effects while
+interacting with the event pool.
+
+There are of course many issues with the above code. What if one thread attempts to insert an event while another thread
+is emptying the queue with "getPlayerEvents"? To solve this issue in other languages (such as C++), we would define a mutex, lock the mutex when operating on the
+data, and unlock when complete. If the mutex is locked, the threads wait until the mutex is unlocked to attempt to scoop
+up control.
+
+In Scala, let's take a different approach. Using FRP, let's isolate our mutable state inside of an [Actor](http://akka.io/):
+ 
+{% highlight scala %}
 {% endhighlight %}

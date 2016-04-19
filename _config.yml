@@ -6,12 +6,15 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 
 # Site settings
-title: Mitchell's... Stuff
+title: The Coding Imp
 email: mitchell@schwitzer.ca
 description: > # this means to ignore newlines until "baseurl:"
   All the muck that's fit to rake!
+
+  I'm a Software Engineer always looking to learn and improve my abilities. As of now, I work primarily in Scala.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://schwitzerm.github.io/" # the base hostname & protocol for your site
+author: "Mitchell Schwitzer"
 twitter_username: meschwitzer
 github_username:  schwitzerm
 
