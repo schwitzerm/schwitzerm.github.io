@@ -3,7 +3,7 @@ layout: post
 title: "Stuff will go here"
 date: 2016-04-17 23:52:54 -0700
 tags: miscpost,useless
-----------------------
+---
 Soon I'll be writing about my programming experiences here. I'm just too tired to do that right now.
 
 Here is a test code snippet:
