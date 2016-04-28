@@ -15,12 +15,18 @@ understanding and confidence with all sorts of concepts such as recursion and im
 I'll write more about this soon.
 
 Anyways... Scala's type system is rather verbose and allows for one to express all sorts of concepts rather abstractly.
-I am going to be using a few key concepts for this project: [monads], [first-class functions], implicit [parameters] and
-[classes], [typeclasses], and [structural subtyping] (also known as duck typing). I am also considering using trait
+I am going to be using a few key concepts for this project: [monads][1], [first-class functions][2], implicit [parameters][3]
+and [classes][4], [typeclasses][5], and [structural subtyping][6] (also known as duck typing). I am also considering using trait
 mix-in composition to represent concepts such as a card's colour, but I'm not sure if this is as viable as simple using
 case objects.
+  [1]: https://github.com/fpinscala/fpinscala/wiki/Chapter-11:-Monads
+  [2]: https://en.wikipedia.org/wiki/First-class_function
+  [3]: http://docs.scala-lang.org/tutorials/tour/implicit-parameters.html
+  [4]: http://docs.scala-lang.org/overviews/core/implicit-classes.html
+  [5]: http://www.cakesolutions.net/teamblogs/demystifying-implicits-and-typeclasses-in-scala
+  [6]: http://langexplr.blogspot.ca/2007/07/structural-types-in-scala-260-rc1.html
 
-All source code for the project can be found at {% include icon-github.html %}[github].
+All source code for the project can be found on {% include icon-github.html %}[github](https://github.com/schwitzerm/scala-mtg-types).
 
 For now, let's go over some of the basic structures. Here is the basic layout for a card:
 
@@ -143,11 +149,3 @@ object ManaCost {
 }
 {% endhighlight %}
 </figure>
-
-[monads]: https://github.com/fpinscala/fpinscala/wiki/Chapter-11:-Monads
-[first-class functions]: https://en.wikipedia.org/wiki/First-class_function
-[parameters]: http://docs.scala-lang.org/tutorials/tour/implicit-parameters.html
-[classes]: http://docs.scala-lang.org/overviews/core/implicit-classes.html
-[typeclasses]: http://www.cakesolutions.net/teamblogs/demystifying-implicits-and-typeclasses-in-scala
-[structural subtyping]: http://langexplr.blogspot.ca/2007/07/structural-types-in-scala-260-rc1.html
-[github]: https://github.com/schwitzerm/scala-mtg-types
