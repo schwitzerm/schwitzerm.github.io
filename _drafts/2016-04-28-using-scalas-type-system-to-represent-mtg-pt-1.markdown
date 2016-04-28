@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Using Scala's Type System to represent Magic: The Gathering Pt. 1"
+date: 2016-04-28 02:03:00 -0700
 tags: experimental,mtg,scala
 ---
 I've been working with Scala a lot as of late, on a lot of personal projects. I've decided I need to get more
@@ -14,17 +15,24 @@ understanding and confidence with all sorts of concepts such as recursion and im
 I'll write more about this soon.
 
 Anyways... Scala's type system is rather verbose and allows for one to express all sorts of concepts rather abstractly.
-I am going to be using a few key concepts for this project: [monads], [first-class functions], implicit [parameters] and
-[classes], [typeclasses], and [structural subtyping] (also known as duck typing). I am also considering using trait
+I am going to be using a few key concepts for this project: [monads][1], [first-class functions][2], implicit [parameters][3]
+and [classes][4], [typeclasses][5], and [structural subtyping][6] (also known as duck typing). I am also considering using trait
 mix-in composition to represent concepts such as a card's colour, but I'm not sure if this is as viable as simple using
 case objects.
 
-All source code for the project can be found at {% include icon-github.html %}[github].
+  [1]: https://github.com/fpinscala/fpinscala/wiki/Chapter-11:-Monads
+  [2]: https://en.wikipedia.org/wiki/First-class_function
+  [3]: http://docs.scala-lang.org/tutorials/tour/implicit-parameters.html
+  [4]: http://docs.scala-lang.org/overviews/core/implicit-classes.html
+  [5]: http://www.cakesolutions.net/teamblogs/demystifying-implicits-and-typeclasses-in-scala
+  [6]: http://langexplr.blogspot.ca/2007/07/structural-types-in-scala-260-rc1.html
+
+All source code for the project can be found on [github](https://github.com/schwitzerm/scala-mtg-types).
 
 For now, let's go over some of the basic structures. Here is the basic layout for a card:
 
 <figure>
-<figcaption>File: Card.scala</figcaption>
+<figcaption>    File: Card.scala</figcaption>
 {% highlight scala %}
 trait Card {
   val name: String
@@ -47,12 +55,12 @@ trait Card {
 </figure>
 
 That's a lot of things! It's ok, they're all rather simple. _name_, _artist_, _power_, and _toughness_ are all rather
-straight-forward. Our card's _flavourText_ is represented with an Option\[String\] as not all cards will contain
+straight-forward. Our card's _flavourText_ is represented with an Option[String] as not all cards will contain
 flavour text. However, our _cardSetInfo_, _colours_, _types_, and _manaCost_ are more complex, with the latter being
 considerably more complex than those prior. Let's take a closer look at the first three:
 
 <figure>
-<figcaption>File: CardSetInfo.scala</figcaption>
+<figcaption>    File: CardSetInfo.scala</figcaption>
 {% highlight scala %}
 case class CardSetInfo(
   expansions: Seq[Expansion],
@@ -63,10 +71,10 @@ case class CardSetInfo(
 <figure>
 
 I won't go to into the details about the implementation of the classes represented in _CardSetInfo_, they can be viewed
-in the source code. _expansions_ is a Seq\[Expansion\] as cards can belong to multiple expansions due to reprinting.
+in the source code. _expansions_ is a Seq[Expansion] as cards can belong to multiple expansions due to reprinting.
 
 <figure>
-<figcaption>File: Colour.scala</figcaption>
+<figcaption>    File: Colour.scala</figcaption>
 {% highlight scala %}
 sealed trait Colour
 
@@ -84,13 +92,15 @@ object Colour {
 </figure>
 
 <figure>
-<figcaption>File: CardSubTypes.scala</figcaption>
+<figcaption>    File: CardSubTypes.scala</figcaption>
+{% highlight scala %}
 sealed trait CardSubTypes
 
 object CardSubTypes {
   case object Human extends CardSubTypes
   case object Soldier extends CardSubTypes
 }
+{% endhighlight %}
 </figure>
 
 I am considering implementing the two above traits as mix-ins as opposed to what are essentially enumerations. I have
@@ -100,7 +110,7 @@ multiple-inheritence. I have yet to experiment. A post coming soon will contain 
 Now, _ManaCost_ is a bit more complicated:
 
 <figure>
-<figcaption>File: ManaCost.scala </figcaption>
+<figcaption>    File: ManaCost.scala </figcaption>
 {% highlight scala %}
 case class ManaCost(iv: SortedMap[Mana, Int]) extends SortedMap[Mana, Int] {
   override implicit def ordering: Ordering[Mana] = iv.ordering
@@ -142,11 +152,3 @@ object ManaCost {
 }
 {% endhighlight %}
 </figure>
-
-[monads]: https://github.com/fpinscala/fpinscala/wiki/Chapter-11:-Monads
-[first-class functions]: https://en.wikipedia.org/wiki/First-class_function
-[parameters]: http://docs.scala-lang.org/tutorials/tour/implicit-parameters.html
-[classes]: http://docs.scala-lang.org/overviews/core/implicit-classes.html
-[typeclasses]: http://www.cakesolutions.net/teamblogs/demystifying-implicits-and-typeclasses-in-scala
-[structural subtyping]: http://langexplr.blogspot.ca/2007/07/structural-types-in-scala-260-rc1.html
-[github]: https://github.com/schwitzerm/scala-mtg-types
