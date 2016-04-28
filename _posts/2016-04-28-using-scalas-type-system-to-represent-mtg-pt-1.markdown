@@ -32,7 +32,7 @@ All source code for the project can be found on [github](https://github.com/schw
 For now, let's go over some of the basic structures. Here is the basic layout for a card:
 
 <figure>
-<figcaption>File: Card.scala</figcaption>
+<figcaption>    File: Card.scala</figcaption>
 {% highlight scala %}
 trait Card {
   val name: String
@@ -60,7 +60,7 @@ flavour text. However, our _cardSetInfo_, _colours_, _types_, and _manaCost_ are
 considerably more complex than those prior. Let's take a closer look at the first three:
 
 <figure>
-<figcaption>File: CardSetInfo.scala</figcaption>
+<figcaption>    File: CardSetInfo.scala</figcaption>
 {% highlight scala %}
 case class CardSetInfo(
   expansions: Seq[Expansion],
@@ -74,7 +74,7 @@ I won't go to into the details about the implementation of the classes represent
 in the source code. _expansions_ is a Seq\[Expansion\] as cards can belong to multiple expansions due to reprinting.
 
 <figure>
-<figcaption>File: Colour.scala</figcaption>
+<figcaption>    File: Colour.scala</figcaption>
 {% highlight scala %}
 sealed trait Colour
 
@@ -92,13 +92,15 @@ object Colour {
 </figure>
 
 <figure>
-<figcaption>File: CardSubTypes.scala</figcaption>
+<figcaption>    File: CardSubTypes.scala</figcaption>
+{% highlight scala %}
 sealed trait CardSubTypes
 
 object CardSubTypes {
   case object Human extends CardSubTypes
   case object Soldier extends CardSubTypes
 }
+{% endhighlight %}
 </figure>
 
 I am considering implementing the two above traits as mix-ins as opposed to what are essentially enumerations. I have
@@ -108,7 +110,7 @@ multiple-inheritence. I have yet to experiment. A post coming soon will contain 
 Now, _ManaCost_ is a bit more complicated:
 
 <figure>
-<figcaption>File: ManaCost.scala </figcaption>
+<figcaption>    File: ManaCost.scala </figcaption>
 {% highlight scala %}
 case class ManaCost(iv: SortedMap[Mana, Int]) extends SortedMap[Mana, Int] {
   override implicit def ordering: Ordering[Mana] = iv.ordering
