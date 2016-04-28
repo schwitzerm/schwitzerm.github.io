@@ -19,6 +19,7 @@ I am going to be using a few key concepts for this project: [monads][1], [first-
 and [classes][4], [typeclasses][5], and [structural subtyping][6] (also known as duck typing). I am also considering using trait
 mix-in composition to represent concepts such as a card's colour, but I'm not sure if this is as viable as simple using
 case objects.
+
   [1]: https://github.com/fpinscala/fpinscala/wiki/Chapter-11:-Monads
   [2]: https://en.wikipedia.org/wiki/First-class_function
   [3]: http://docs.scala-lang.org/tutorials/tour/implicit-parameters.html
@@ -26,7 +27,7 @@ case objects.
   [5]: http://www.cakesolutions.net/teamblogs/demystifying-implicits-and-typeclasses-in-scala
   [6]: http://langexplr.blogspot.ca/2007/07/structural-types-in-scala-260-rc1.html
 
-All source code for the project can be found on {% include icon-github.html %}[github](https://github.com/schwitzerm/scala-mtg-types).
+All source code for the project can be found on [github](https://github.com/schwitzerm/scala-mtg-types).
 
 For now, let's go over some of the basic structures. Here is the basic layout for a card:
 
