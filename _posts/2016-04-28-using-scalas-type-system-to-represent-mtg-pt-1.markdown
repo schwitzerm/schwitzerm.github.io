@@ -56,8 +56,9 @@ trait Card {
 
 That's a lot of things! It's ok, they're all rather simple. _name_, _artist_, _power_, and _toughness_ are all rather
 straight-forward. Our card's _flavourText_ is represented with an Option[String] as not all cards will contain
-flavour text. However, our _cardSetInfo_, _colours_, _types_, and _manaCost_ are more complex, with the latter being
-considerably more complex than those prior. Let's take a closer look at the first three:
+flavour text. (Quick edit: I realize the card abilities are not present. That has been remedied and will be talked about
+in the next post.) However, our _cardSetInfo_, _colours_, _types_, and _manaCost_ are more complex, with the latter
+being considerably more complex than those prior. Let's take a closer look at the first three:
 
 <figure>
 <figcaption>    File: CardSetInfo.scala</figcaption>
