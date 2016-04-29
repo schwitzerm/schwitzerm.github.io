@@ -68,7 +68,7 @@ case class CardSetInfo(
   collectorsNumbers: CollectorsNumbers
 )
 {% endhighlight %}
-<figure>
+</figure>
 
 I won't go to into the details about the implementation of the classes represented in _CardSetInfo_, they can be viewed
 in the source code. _expansions_ is a Seq[Expansion] as cards can belong to multiple expansions due to reprinting.
