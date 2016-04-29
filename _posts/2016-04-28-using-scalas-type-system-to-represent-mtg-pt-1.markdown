@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Using Scala's Type System to represent Magic: The Gathering Pt. 1"
-date: 2016-04-28 02:03:00 -0700
+date: 2016-04-28 22:52:37 -0700
 tags: experimental,mtg,scala
 ---
 I've been working with Scala a lot as of late, on a lot of personal projects. I've decided I need to get more
@@ -152,3 +152,31 @@ object ManaCost {
 }
 {% endhighlight %}
 </figure>
+
+I'm using a sorted map here so that my mana is displayed in the order one would find mana strings in text. Say,
+one blue mana, two any mana => 2U. Two black mana, one green mana => BBG. I may change this up to be the order
+that mana is displayed on a physical card, but this works for now.
+
+To determine the converted mana cost, I'm simply folding over each mana type present in the cost and adding their
+totals to my accumulator. Now that I'm writing this, I realize I can simplify this as _iv.values.sum_.
+
+The simplify function simply removes all mana costs that are set at 0. I am looking at having _Mana.AnyMana_ -> 0
+to be allowed as there are cards with a cost of 0 (eg, Memnite, Ornithopter, etc.).
+ 
+How does the ManaCost class work? Quite simply, really:
+
+{% highlight scala %}
+// this is 3WW
+val manaCost = new ManaCost(Mana.WhiteMana -> 2, Mana.AnyMana -> 3)
+
+// this is WG
+val otherManaCost = new ManaCost(Mana.GreenMana -> 1, Mana.WhiteMana -> 1)
+{% endhighlight %}
+
+I may add functionality to make mana costs composable. eg) 3wwMana compose wgMana => 3WWWG.
+
+That's all I'll write about for now. Next post will detail how I am going to import a collection of MTG cards
+(probably using the JSON available at [MTGJson](http://www.mtgjson.com). I will also detail my plans for a game
+state and how to handle the mutability. Also the introduction of some simple rules, such as applying Exalted.
+
+Thanks for reading!
