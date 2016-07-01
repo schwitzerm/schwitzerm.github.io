@@ -13,7 +13,7 @@ description: > # this means to ignore newlines until "baseurl:"
   <br/>
   I'm a software engineer always looking to learn and improve my abilities. As of now, I work primarily in Scala.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://schwitzerm.github.io/" # the base hostname & protocol for your site
+url: "http://schwitzerm.gitlab.io/" # the base hostname & protocol for your site
 author: "Mitchell Schwitzer"
 twitter_username: meschwitzer
 github_username:  schwitzerm
