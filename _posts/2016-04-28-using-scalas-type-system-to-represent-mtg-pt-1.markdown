@@ -27,7 +27,7 @@ case objects.
   [5]: http://www.cakesolutions.net/teamblogs/demystifying-implicits-and-typeclasses-in-scala
   [6]: http://langexplr.blogspot.ca/2007/07/structural-types-in-scala-260-rc1.html
 
-All source code for the project can be found on [github](https://github.com/schwitzerm/scala-mtg-types).
+All source code for the project can be found on [Gitlab](https://gitlab.com/schwitzerm/scala-mtg-types).
 
 For now, let's go over some of the basic structures. Here is the basic layout for a card:
 
